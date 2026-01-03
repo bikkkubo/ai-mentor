@@ -87,7 +87,7 @@ function api_getData() {
  */
 function api_chat(text: string) {
     // Reuse the existing Orchestrator/OpenAI logic
-    const systemPrompt = "You are a helpful AI Assistant for the web dashboard. Keep it brief.";
+    const systemPrompt = "あなたはWebダッシュボードのアシスタントAIです。簡潔に、日本語で回答してください。";
     const response = openAIService.generateCompletion(systemPrompt, text);
     return { text: response };
 }

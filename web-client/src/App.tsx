@@ -19,7 +19,7 @@ interface ChatMessage {
 
 function App() {
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<ChatMessage[]>([{ sender: 'bot', text: 'Hello! How can I help with your tasks today?' }]);
+  const [messages, setMessages] = useState<ChatMessage[]>([{ sender: 'bot', text: 'こんにちは！今日のタスクについて何かお手伝いしましょうか？' }]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -34,8 +34,8 @@ function App() {
     } else {
       // Mock data for local dev
       setTasks([
-        { id: '1', name: 'Mock Task 1', due: '2026-05-01', listId: '1' },
-        { id: '2', name: 'Mock Task 2', due: '2026-05-05', listId: '1' }
+        { id: '1', name: '助成金の申請 (モック)', due: '2026-05-01', listId: '1' },
+        { id: '2', name: '月次レポート作成 (モック)', due: '2026-05-05', listId: '1' }
       ]);
     }
   }, []);
@@ -72,7 +72,7 @@ function App() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-800">AI Mentor</h1>
-            <p className="text-sm text-gray-500">Intelligent Facilitation</p>
+            <p className="text-sm text-gray-500">あなたの専属コーチ</p>
           </div>
         </header>
 
@@ -83,14 +83,14 @@ function App() {
                 ? 'bg-indigo-600 text-white rounded-br-none'
                 : 'bg-white/80 text-gray-800 border border-white/50 rounded-bl-none'
                 }`}>
-                <p className="leading-relaxed">{m.text}</p>
+                <p className="leading-relaxed whitespace-pre-wrap">{m.text}</p>
               </div>
             </div>
           ))}
           {loading && (
             <div className="flex justify-start animate-pulse">
               <div className="bg-white/50 px-4 py-2 rounded-full text-sm text-gray-500 border border-white/30">
-                Thinking...
+                考え中...
               </div>
             </div>
           )}
@@ -99,10 +99,10 @@ function App() {
         <div className="mt-4 z-10 glass-panel rounded-2xl p-2 flex items-center gap-2">
           <input
             className="flex-1 bg-transparent border-none focus:ring-0 px-4 py-2 text-gray-700 placeholder-gray-400"
-            placeholder="Type your message..."
+            placeholder="メッセージを入力..."
             value={input}
             onChange={e => setInput(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && sendMessage()}
+            onKeyDown={e => e.key === 'Enter' && !e.nativeEvent.isComposing && sendMessage()}
           />
           <button
             onClick={sendMessage}
@@ -123,7 +123,7 @@ function App() {
             <div className="bg-orange-100 p-2 rounded-lg">
               <ListTodo className="w-5 h-5 text-orange-500" />
             </div>
-            Current Tasks
+            現在のタスク
           </h2>
 
           <div className="space-y-3 overflow-y-auto flex-1 z-10 pr-2">
@@ -132,8 +132,8 @@ function App() {
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-orange-400 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <h3 className="font-semibold text-gray-800">{task.name}</h3>
                 <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                  <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {new Date(task.due).toLocaleDateString()}</span>
-                  <span className="bg-gray-100 px-2 py-0.5 rounded-full text-xs font-medium">Doing</span>
+                  <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {new Date(task.due).toLocaleDateString('ja-JP')}</span>
+                  <span className="bg-gray-100 px-2 py-0.5 rounded-full text-xs font-medium">進行中</span>
                 </div>
               </div>
             ))}
